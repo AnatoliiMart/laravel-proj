@@ -26,10 +26,10 @@
       <td>{{$loop->iteration}}</td>
       <td>{{$genre->name}} {{$genre->books_count}}</td>
       <td>{{$genre->description}}</td>
-      <td>
+      <td class="w-25 d-flex flex-row">
         <a class="btn btn-warning" href="{{route('genres.edit', ['genre'=> $genre->id])}}">Edit</a>
         {!! Form::open(['route'=>['genres.destroy', $genre->id], 'method' => 'delete']) !!}
-        <button type="submit" class="btn btn-danger">Delete</button>
+        <button type="submit" class="btn btn-danger mt-3">Delete</button>
         {!! Form::close() !!}
       </td>
     </tr>

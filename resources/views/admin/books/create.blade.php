@@ -9,8 +9,12 @@
         </ul>
     </div>
 @endif
-    <h2>Create Book</h1>
-    {!! Form::open(['route'=>'books.store', 'files' => true]) !!}
-    @include('admin.books._form')
-    {!! Form::close()!!}
+    <div class="d-flex justify-content-center ">
+        <h2 class="m-3">Create Book</h1>
+        <div class="container mt-3 w-50">
+            {!! Form::open(['route'=>'books.store', 'files' => true]) !!}
+            @include('admin.books._form')
+            {!! Form::close()!!}
+        </div>
+    </div>
 @endsection

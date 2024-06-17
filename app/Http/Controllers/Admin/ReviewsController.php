@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,9 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-        $reviews = Review::all()->sortByDesc('created_at');
-        return view('admin.reviews.index', compact('reviews'));
+        $reviews = Review::all();
+        $books= Book::pluck('name','id')->all();
+        return view('admin.reviews.index', compact('reviews', 'books'));
     }
 
     /**
@@ -44,30 +46,16 @@ class ReviewsController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Review $review)
     {
-        //
+        $bookName = $review->book->name;
+        $review->delete();
+
+        return back()->with('success', "Review of $review->name on book $bookName was deleted sucessfully");
     }
 }

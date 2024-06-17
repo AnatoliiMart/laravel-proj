@@ -30,9 +30,6 @@
                           <a class="nav-link active" aria-current="page" href="{{route('genres.index')}}">Genres</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{route('reviews')}}">Reviews</a>
-                        </li>
-                        <li class="nav-item">
                           <a class="nav-link active" aria-current="page" href="{{route('reviews.index')}}">Reviews Admin</a>
                         </li>
                         <li class="nav-item">

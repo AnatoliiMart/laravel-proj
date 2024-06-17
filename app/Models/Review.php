@@ -12,6 +12,6 @@ class Review extends Model
     public $fillable = ['name', 'review', 'book_id'];
     public function book(): BelongsTo
     {
-        return $this->belongsTo(Book::class, 'book_id', 'id');
+        return $this->belongsTo(Book::class);
     }
 }

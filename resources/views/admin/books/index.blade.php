@@ -33,7 +33,7 @@
               <td>
                 <a class="btn btn-warning" href="{{route('books.edit', ['book'=> $book->id])}}">Edit</a>
                 {!! Form::open(['route'=>['books.destroy', $book->id], 'method' => 'delete']) !!}
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger mt-3">Delete</button>
                 {!! Form::close() !!}
               </td>
             </tr>

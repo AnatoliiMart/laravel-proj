@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -64,7 +65,8 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         $genres = Genre::all()->pluck('name', 'id');
-        return view('admin.books.edit', compact('book', "genres"));
+        $reviews = Review::where('book_id', $book->id)->get();
+        return view('admin.books.edit', compact('book', "genres", 'reviews'));
     }
 
     /**
@@ -91,6 +93,7 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+        return to_route('books.index')->with('success', 'Book deleted successfully');
     }
 }

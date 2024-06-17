@@ -14,4 +14,4 @@
   {!! Form::label('image', "Upload book image:", ['class'=>'form-label']) !!}
   {!! Form::file('image',['class'=>'form-control'])!!}
 </div>
-<button class="btn btn-success mt-3">Add</button>
+<button class="btn btn-success mt-3">Save</button>
