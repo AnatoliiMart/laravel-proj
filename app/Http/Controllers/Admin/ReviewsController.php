@@ -6,30 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $reviews = Review::all();
-        $books= Book::pluck('name','id')->all();
-        return view('admin.reviews.index', compact('reviews', 'books'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $request->validate([
@@ -38,19 +18,25 @@ class ReviewsController extends Controller
             'book_id' => 'required|exists:books,id',
         ]);
         Review::create($request->all());
-        return to_route('reviews.index')->with('success', 'Thanks for your review');
+        return back()->with('success', 'Thanks for your review');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Review $review)
     {
+        return view('admin.reviews.edit', compact('review'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    public function update(Request $request, Review $review)
+    {
+        $request->validate([
+            'name' => 'required',
+            'review' => 'required|max:500',
+            'book_id' => 'required|exists:books,id',
+        ]);
+        $review->update($request->all());
+        return to_route('book.show', ["book" => $review->book_id])->with('success', 'Review updated successfully');
+    }
+    
     public function destroy(Review $review)
     {
         $bookName = $review->book->name;

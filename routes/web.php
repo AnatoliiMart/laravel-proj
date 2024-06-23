@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\BookController;
+use App\Http\Controllers\Admin\BookController as AdminBookController;
 use App\Http\Controllers\Admin\GenresController;
 use App\Http\Controllers\Admin\ReviewsController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\BookController as ClientBookController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +20,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index'])->name('home');
-Route::get('/contacts', [MainController::class, 'contacts'])->name('contacts');
-
 Route::post('/contacts', [MainController::class, 'sendEmail'])->name('contacts.send');
 Route::get('/reviews', [MainController::class, 'reviews'])->name('reviews');
 Route::controller(ClientBookController::class, '')->group(function () {
@@ -32,7 +29,7 @@ Route::controller(ClientBookController::class, '')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
   Route::resource('/genres', GenresController::class);
   Route::resource('/reviews', ReviewsController::class);
-  Route::resource('/books', BookController::class);
+  Route::resource('/books', AdminBookController::class);
 });
 Auth::routes();
 

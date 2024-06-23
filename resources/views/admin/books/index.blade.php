@@ -13,7 +13,7 @@
 <a class="btn btn-primary" href="{{route('books.create')}}">Create New Book</a>
 <table class="table table-striped table-hover">
   <thead>
-    <tr>
+    <tr class="text-center">
       <th>#</th>
       <th>Name</th>
       <th>Image</th>
@@ -24,17 +24,19 @@
   </thead>
   <tbody>
   @foreach ($books as $book)
-            <tr>
+            <tr class="text-center mt-2">
               <td>{{$loop->iteration}}</td>
               <td><img src="{{asset($book->image)}}" alt="{{$book->name}}" width="100px"></td>
               <td>{{$book->name}}</td>
               <td>{{$book->short_description}}</td>
               <td>{{$book->genre->name}}</td>
               <td>
-                <a class="btn btn-warning" href="{{route('books.edit', ['book'=> $book->id])}}">Edit</a>
-                {!! Form::open(['route'=>['books.destroy', $book->id], 'method' => 'delete']) !!}
-                <button type="submit" class="btn btn-danger mt-3">Delete</button>
-                {!! Form::close() !!}
+                <div class="d-flex flex-row gap-3 align-items-center justify-content-center">
+                  <a class="btn btn-warning" href="{{route('books.edit', ['book'=> $book->id])}}">Edit</a>
+                  {!! Form::open(['route'=>['books.destroy', $book->id], 'method' => 'delete']) !!}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                  {!! Form::close() !!}
+                </div>
               </td>
             </tr>
   @endforeach

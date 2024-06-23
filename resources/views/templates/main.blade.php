@@ -21,20 +21,18 @@
                   <!-- Left Side Of Navbar -->
                   <ul class="navbar-nav me-auto">
                       <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{route('home')}}">Home</a>
+                          <a class="nav-link active" aria-current="page" href="{{route('home')}}">Books</a>
                         </li>
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{route('contacts')}}">Contacts</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{route('genres.index')}}">Genres</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{route('reviews.index')}}">Reviews Admin</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link active" aria-current="page" href="{{route('books.index')}}">Books</a>
-                        </li>
+                        @auth
+                            @if (Auth::user()->isAdmin())
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{route('genres.index')}}">Genres Admin</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{route('books.index')}}">Books Admin</a>
+                                </li>
+                            @endif
+                        @endauth
                   </ul>
 
                   <!-- Right Side Of Navbar -->

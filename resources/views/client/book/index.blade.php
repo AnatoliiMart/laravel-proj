@@ -17,18 +17,20 @@
         <form action="{{route('reviews.store')}}" method="post" class="p-3 pt-0" >
             @csrf
             <input type="hidden" name="book_id" value="{{$book->id}}">
+            <input type="hidden" class="form-control"name="name"  value="{{Auth::user()->name}}" readonly>
+
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control"name="name"  value="{{Auth::user()->name}}" readonly>
-            </div>
-            <div class="form-group">
-                <label for="review">Review:</label>
-                <textarea class="form-control" name="review"></textarea>
+
+                <textarea class="form-control" name="review" placeholder="Put your review here"></textarea>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Make Review</button>
         </form>
-    
       </div>
+      @if (session('success'))
+        <div class="alert alert-success mt-3" style="width: 80%">
+            {{ session('success') }}
+        </div>
+      @endif
     @else
       <h3 class="mt-2">
         <a class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" href="{{route('login')}}">Login</a> or 
@@ -42,9 +44,18 @@
               <h3>{{ $review->name }}</h3>
               <p>{{ $review->review }}</p>
             </div>
-            <p class="fs-6 fst-italic">{{date_format($review->created_at, 'd-m-Y')}}</p>
+            <div class="d-flex flex-row gap-2 align-items-center">
+              <p class="fs-6 fst-italic pt-3">{{date_format($review->created_at, 'd-m-Y')}}</p>
+              @auth
+                @if (Auth::user()->isAdmin())
+                  <a class="btn btn-warning" href="{{route('reviews.edit', ['review'=> $review->id])}}">Edit</a>
+                  {!! Form::open(['route'=>['reviews.destroy', $review->id], 'method' => 'delete']) !!}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                  {!! Form::close() !!}
+                @endif
+              @endauth
+            </div>
           </div>
-          
       @endforeach
     </div>
   </div>

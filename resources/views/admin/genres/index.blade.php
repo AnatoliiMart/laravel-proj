@@ -13,7 +13,7 @@
 <a class="btn btn-primary" href="{{route('genres.create')}}">Create New Genre</a>
 <table class="table table-striped table-hover">
   <thead>
-    <tr>
+    <tr class="text-center">
       <th>#</th>
       <th>Name</th>
       <th>Description</th>
@@ -22,15 +22,17 @@
   </thead>
   <tbody>
   @foreach ($genres as $genre)
-    <tr>
+    <tr class="text-center">
       <td>{{$loop->iteration}}</td>
       <td>{{$genre->name}} {{$genre->books_count}}</td>
-      <td>{{$genre->description}}</td>
-      <td class="w-25 d-flex flex-row">
-        <a class="btn btn-warning" href="{{route('genres.edit', ['genre'=> $genre->id])}}">Edit</a>
-        {!! Form::open(['route'=>['genres.destroy', $genre->id], 'method' => 'delete']) !!}
-        <button type="submit" class="btn btn-danger mt-3">Delete</button>
-        {!! Form::close() !!}
+      <td style="width:40%">{{$genre->description}}</td>
+      <td style="width:30%">
+        <div class="d-flex flex-row gap-3 align-items-center justify-content-center mt-3">
+          <a class="btn btn-warning" href="{{route('genres.edit', ['genre'=> $genre->id])}}">Edit</a>
+          {!! Form::open(['route'=>['genres.destroy', $genre->id], 'method' => 'delete']) !!}
+          <button type="submit" class="btn btn-danger">Delete</button>
+          {!! Form::close() !!}
+        </div>
       </td>
     </tr>
   @endforeach
